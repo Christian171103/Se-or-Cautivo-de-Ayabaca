@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrar cancionero</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero"><div class="hero__top-ornament"><span></span><b>◆ ✥ ◆</b><span></span></div><h1><span>Panel del<br>Cancionero</span></h1><p class="hero__location">Administración privada</p></header>
+
+  <main>
+    <section id="login-view" class="admin-card admin-login">
+      <h2 class="admin-title">Ingresar</h2>
+      <form id="login-form" class="admin-form">
+        <label class="form-field">Correo<input id="login-email" type="email" required autocomplete="username"></label>
+        <label class="form-field">Contraseña<input id="login-password" type="password" required autocomplete="current-password"></label>
+        <button class="action-button" type="submit">Iniciar sesión</button>
+        <p id="login-status" class="status-message"></p>
+      </form>
+      <p><a href="index.html">← Volver al cancionero</a></p>
+    </section>
+
+    <section id="panel-view" class="admin-shell" hidden>
+      <div class="admin-toolbar"><div><h2 class="admin-title">Canciones</h2><p id="admin-user" class="status-message"></p></div><div class="form-actions"><button id="import-initial" class="action-button action-button--secondary" type="button">Importar canciones iniciales</button><a class="action-button action-button--secondary" href="index.html">Ver cancionero</a><button id="logout" class="action-button" type="button">Cerrar sesión</button></div></div>
+      <div class="admin-grid">
+        <form id="song-form" class="admin-card admin-form">
+          <h3 id="form-title" class="admin-title">Nueva canción</h3>
+          <input id="song-id" type="hidden">
+          <div class="form-row">
+            <label class="form-field">Número<input id="song-number" required maxlength="5"></label>
+            <label class="form-field">Orden<input id="song-order" type="number" min="0" required></label>
+          </div>
+          <label class="form-field">Título<input id="song-title" required></label>
+          <label class="form-field">Categoría<input id="song-category" placeholder="Ej.: Camino del peregrino"></label>
+          <label class="form-field">Letra<textarea id="song-lyrics" required></textarea></label>
+          <label class="form-field">Enlace de YouTube<input id="song-youtube" type="url" placeholder="https://www.youtube.com/watch?v=..."></label>
+          <div class="form-row">
+            <label class="form-field">Minuto inicial<input id="song-minute" type="number" min="0" value="0"></label>
+            <label class="form-field">Segundo inicial<input id="song-second" type="number" min="0" max="59" value="0"></label>
+          </div>
+          <label class="checkbox-field"><input id="song-featured" type="checkbox"> Canción destacada/fija</label>
+          <div class="form-actions"><button class="action-button" type="submit">Guardar</button><button id="cancel-edit" class="action-button action-button--secondary" type="button">Limpiar</button></div>
+          <p id="form-status" class="status-message"></p>
+        </form>
+
+        <section class="admin-card">
+          <div class="form-field"><label for="admin-search">Buscar</label><input id="admin-search" placeholder="Número o título"></div>
+          <p id="admin-count" class="status-message"></p>
+          <div id="admin-list" class="admin-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="canciones.js"></script><script src="data-service.js"></script><script src="admin.js"></script>
+</body>
+</html>

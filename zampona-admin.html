@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administración Zampoña · Señor Cautivo</title>
+  <link rel="stylesheet" href="musica.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-cross">✝</div>
+      <strong>Señor Cautivo</strong>
+      <span>Administración musical</span>
+    </div>
+    <nav class="side-nav">
+      <a href="index.html">♫ Cancionero</a>
+      <a href="charango.html">🪕 Charango</a>
+      <a href="zampona.html">▥ Zampoña pública</a>
+      <a class="active" href="zampona-admin.html">⚙ Editar Zampoña</a>
+    </nav>
+    <div class="sidebar-foot">Acceso privado</div>
+  </aside>
+
+  <main class="app">
+    <section id="loginView" class="music-login">
+      <div class="panel music-login-card">
+        <p class="eyebrow">Administración privada</p>
+        <h1>Editor de Zampoña</h1>
+        <form id="loginForm" class="admin-music-form">
+          <label><span>Correo</span><input id="loginEmail" type="email" required autocomplete="username"></label>
+          <label><span>Contraseña</span><input id="loginPassword" type="password" required autocomplete="current-password"></label>
+          <button class="primary wide">Iniciar sesión</button>
+          <p id="loginStatus" class="status-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="adminView" hidden>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Administración privada</p>
+          <h1>Editor de Zampoña</h1>
+        </div>
+        <div class="top-controls">
+          <span id="adminUser" class="soft-badge"></span>
+          <button id="logoutBtn" class="ghost">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <section class="z-admin-layout-v3">
+
+        <aside class="panel z-admin-left">
+          <div class="panel-head">
+            <div><span class="step">1</span><h2>Ficha de la canción</h2></div>
+          </div>
+
+          <div class="admin-fields">
+            <label><span>Canción</span><select id="songSelect"></select></label>
+            <label><span>Tonalidad / escala</span><input id="songScale" type="text" placeholder="Ej.: Sol mayor"></label>
+            <label><span>Tempo (BPM)</span><input id="songTempo" type="number" min="1" max="300" placeholder="90"></label>
+            <label class="publish-row"><input id="songPublished" type="checkbox"><span>Publicar esta ficha</span></label>
+          </div>
+
+          <div class="z-admin-section-title">
+            <span class="step">2</span>
+            <h2>Partes de la canción</h2>
+          </div>
+
+          <p class="admin-help">Puedes crear las partes que necesites y también divisores como “Cambio a menores”.</p>
+
+          <div class="z-structure-buttons">
+            <button id="addPartBtn" class="ghost">+ Añadir parte</button>
+            <button id="addDividerBtn" class="ghost">+ Añadir comentario / divisor</button>
+          </div>
+
+          <div id="structureList" class="z-admin-structure-list"></div>
+
+          <button id="saveSongRecord" class="primary wide">Guardar ficha de canción</button>
+          <p id="songSaveStatus" class="status-message"></p>
+        </aside>
+
+        <section class="z-admin-right">
+
+          <article class="panel">
+            <div class="panel-head">
+              <div><span class="step">3</span><h2>Configurar zampoña 12×11</h2></div>
+              <div class="z-register-mode">
+                <span>Modo de registro:</span>
+                <button class="mode-select active" data-record-mode="nota">● Nota normal</button>
+                <button class="mode-select" data-record-mode="arrastre">⌒ Arrastre</button>
+              </div>
+            </div>
+
+            <p class="admin-help">
+              La numeración es automática: superior 1–12 e inferior 1–11.
+              El tubo 1 siempre es el más pequeño y el último es el más grande.
+              Selecciona un tubo para modificar su nota.
+            </p>
+
+            <div class="z-admin-instrument">
+              <div class="z-row-block">
+                <div class="z-row-label"><strong>Fila superior</strong><span>12 tubos</span></div>
+                <div id="adminUpperRow" class="z-pipe-row"></div>
+              </div>
+              <div class="z-row-block">
+                <div class="z-row-label"><strong>Fila inferior</strong><span>11 tubos</span></div>
+                <div id="adminLowerRow" class="z-pipe-row"></div>
+              </div>
+            </div>
+
+            <div id="tubeEditor" class="z-tube-editor">
+              <input id="tubeId" type="hidden">
+
+              <div class="zampona-fields">
+                <label>
+                  <span>Fila</span>
+                  <input id="tubeRowDisplay" type="text" readonly>
+                </label>
+                <label>
+                  <span>Número automático</span>
+                  <input id="tubeNumber" type="number" readonly>
+                </label>
+                <label>
+                  <span>Nota</span>
+                  <select id="tubePitch">
+                    <option value="">Seleccionar…</option>
+                    <option value="C">Do (C)</option><option value="C#">Do# (C#)</option>
+                    <option value="D">Re (D)</option><option value="D#">Re# (D#)</option>
+                    <option value="E">Mi (E)</option><option value="F">Fa (F)</option>
+                    <option value="F#">Fa# (F#)</option><option value="G">Sol (G)</option>
+                    <option value="G#">Sol# (G#)</option><option value="A">La (A)</option>
+                    <option value="A#">La# (A#)</option><option value="B">Si (B)</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Octava</span>
+                  <select id="tubeOctave">
+                    <option value="2">2</option><option value="3">3</option>
+                    <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="frequency-box">
+                <span class="admin-help">Frecuencia automática</span>
+                <strong id="autoFrequency">— Hz</strong>
+                <small>Se calcula desde nota + octava con A4 = 440 Hz.</small>
+                <div class="custom-frequency-row">
+                  <label class="publish-row">
+                    <input id="useCustomFrequency" type="checkbox">
+                    <span>Frecuencia personalizada</span>
+                  </label>
+                  <input id="customFrequency" class="custom-frequency-input" type="number" step="0.01" disabled>
+                </div>
+              </div>
+
+              <label class="publish-row"><input id="tubePublished" type="checkbox"><span>Mostrar este tubo al público</span></label>
+
+              <div class="form-actions">
+                <button id="playTubeBtn" class="ghost">▶ Probar sonido</button>
+                <button id="saveTubeBtn" class="primary">Guardar configuración del tubo</button>
+              </div>
+              <p id="tubeSaveStatus" class="status-message"></p>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-head">
+              <div><span class="step">4</span><h2 id="activePartTitle">Secuencia de la parte</h2></div>
+              <div class="z-part-stats">
+                <span id="eventCount" class="soft-badge">0 eventos</span>
+              </div>
+            </div>
+
+            <div id="noPartSelected" class="z-empty-score">
+              Selecciona o crea una parte para comenzar a registrar notas.
+            </div>
+
+            <div id="partEditor" hidden>
+              <div class="z-part-editor-toolbar">
+                <label>
+                  <span>Nombre de la parte</span>
+                  <input id="partName" type="text" placeholder="Ej.: 1ra. Parte">
+                </label>
+                <label>
+                  <span>Duración de la próxima nota</span>
+                  <select id="nextDuration">
+                    <option value="0.5">½</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="admin-fields">
+                <span>Comentario opcional</span>
+                <input id="partComment" type="text" placeholder="Ej.: repetir x2, tocar suave…">
+              </label>
+
+              <div class="z-record-help" id="recordHelp">
+                Modo normal: cada clic agrega una nota. En modo Arrastre: clic en el tubo inicial y luego en el tubo final.
+              </div>
+
+              <div id="adminNotation"></div>
+
+              <div class="z-sequence-actions">
+                <button id="newPhraseBtn" class="ghost">＋ Espacio / Nueva frase</button>
+                <button id="undoEventBtn" class="ghost">↶ Deshacer</button>
+                <button id="clearEventsBtn" class="ghost danger">Limpiar</button>
+                <label class="speed-inline"><span>Velocidad</span>
+                  <select id="adminPlaybackSpeed">
+                    <option value="0.5">x0.5</option><option value="0.75">x0.75</option>
+                    <option value="1" selected>x1</option><option value="1.5">x1.5</option>
+                    <option value="2">x2</option><option value="2.5">x2.5</option><option value="3">x3</option>
+                  </select>
+                </label>
+                <button id="playPartBtn" class="ghost">▶ Escuchar parte</button>
+                <button id="stopPartBtn" class="ghost">■ Detener</button>
+              </div>
+              <p class="z-space-hint">
+                También puedes presionar la <b>barra espaciadora</b> para separar una frase de otra mientras registras.
+              </p>
+
+              <details class="z-manual-details">
+                <summary>⌨ Registro manual avanzado</summary>
+                <p class="admin-help">S = superior, I = inferior. <b>S3&amp;S4</b> = dos medios tiempos; <b>S2&amp;S5</b> = arrastre continuo S2→S3→S4→S5; <b>/</b> = nueva frase.</p>
+                <textarea id="manualSequence" placeholder="S5 I4 S3 I2"></textarea>
+                <button id="applyManualBtn" class="ghost">Aplicar secuencia manual</button>
+              </details>
+            </div>
+
+            <div id="dividerEditor" hidden class="z-divider-editor">
+              <label class="admin-fields">
+                <span>Texto del divisor / comentario</span>
+                <input id="dividerText" type="text" placeholder="Ej.: Cambio a menores">
+              </label>
+            </div>
+          </article>
+
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="canciones.js"></script>
+  <script src="data-service.js"></script>
+  <script src="zampona-admin.js"></script>
+</body>
+</html>

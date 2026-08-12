@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Cancionero digital del Señor Cautivo de Ayabaca."
+  >
+
+  <meta
+    name="theme-color"
+    content="#352448"
+  >
+
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="Cancionero del Señor Cautivo de Ayabaca">
+  <meta property="og:description" content="Letras y acompañamiento musical para peregrinos y devotos.">
+  <meta property="og:image" content="assets/cautivo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/cautivo.png">
+
+  <title>Cancionero Señor Cautivo</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <style>
+    .music-access {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto 28px;
+    }
+
+    .music-access__title {
+      margin: 0 0 14px;
+      text-align: center;
+      color: #342443;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .music-access__buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .music-access__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      min-height: 50px;
+      padding: 11px 18px;
+
+      border: 1px solid rgba(79, 57, 104, 0.22);
+      border-radius: 14px;
+
+      background: rgba(255, 252, 245, 0.92);
+
+      color: #4f3968;
+      text-decoration: none;
+
+      font-family: Arial, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+
+      box-shadow:
+        0 5px 16px rgba(59, 40, 77, 0.06);
+
+      transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .music-access__button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(79, 57, 104, 0.45);
+      background: #fffdf8;
+
+      box-shadow:
+        0 8px 20px rgba(59, 40, 77, 0.10);
+    }
+
+    .music-access__icon {
+      font-size: 1.2rem;
+    }
+
+    .toolbar__actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 700px) {
+
+      .music-access__buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar__actions {
+        width: 100%;
+      }
+
+      .toolbar__actions button {
+        flex: 1;
+      }
+
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <nav class="site-nav" aria-label="Navegación principal">
+    <a class="site-nav__brand" href="index.html"><span>†</span> Señor Cautivo</a>
+    <div class="site-nav__links">
+      <a class="is-active" href="#cancionero">Cancionero</a>
+      <a href="charango.html">Charango</a>
+      <a href="zampona.html">Zampoña</a>
+    </div>
+  </nav>
+
+  <!-- =====================================================
+       DECORACIÓN LATERAL
+       ===================================================== -->
+
+  <div
+    class="page-decoration page-decoration--left"
+    aria-hidden="true"
+  >
+    <img
+      src="assets/santuario.webp"
+      alt=""
+    >
+  </div>
+
+
+  <div
+    class="page-decoration page-decoration--right"
+    aria-hidden="true"
+  >
+    <img
+      src="assets/cautivo.webp"
+      alt=""
+    >
+  </div>
+
+
+
+  <!-- =====================================================
+       CABECERA
+       ===================================================== -->
+
+  <header class="hero">
+
+    <div
+      class="hero__top-ornament"
+      aria-hidden="true"
+    >
+      <span></span>
+
+      <b>◆ ✥ ◆</b>
+
+      <span></span>
+    </div>
+
+
+    <h1>
+
+      <span
+        class="hero__cross"
+        aria-hidden="true"
+      >
+        †
+      </span>
+
+      <span>
+        Cancionero Señor<br>
+        Cautivo
+      </span>
+
+      <span
+        class="hero__cross hero__cross--right"
+        aria-hidden="true"
+      >
+        †
+      </span>
+
+    </h1>
+
+
+    <p class="hero__location">
+      Ayabaca
+      <span>·</span>
+      Piura
+    </p>
+
+
+    <div
+      class="hero__bottom-ornament"
+      aria-hidden="true"
+    >
+
+      <span>❧</span>
+
+      <b>◆</b>
+
+      <span>☙</span>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       ACCESOS MUSICALES
+       ===================================================== -->
+
+  <nav
+    class="music-access"
+    aria-label="Herramientas musicales"
+  >
+
+    <p class="music-access__title">
+      Acompañamiento musical
+    </p>
+
+
+    <div class="music-access__buttons">
+
+      <a
+        class="music-access__button"
+        href="charango.html"
+      >
+
+        <span
+          class="music-access__icon"
+          aria-hidden="true"
+        >
+          🪕
+        </span>
+
+        <span>
+          Charango
+        </span>
+
+      </a>
+
+
+      <a
+        class="music-access__button"
+        href="zampona.html"
+      >
+
+        <span
+          class="music-access__icon"
+          aria-hidden="true"
+        >
+          ♫
+        </span>
+
+        <span>
+          Zampoña
+        </span>
+
+      </a>
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- =====================================================
+       CANCIONERO
+       ===================================================== -->
+
+  <main class="main-content">
+
+    <section
+      class="songbook"
+      id="cancionero"
+      aria-label="Cancionero"
+    >
+
+
+      <!-- =================================================
+           BARRA DE HERRAMIENTAS
+           ================================================= -->
+
+      <div class="toolbar">
+
+
+        <!-- BUSCADOR -->
+
+        <div class="search">
+
+          <label
+            class="sr-only"
+            for="buscador"
+          >
+            Buscar una canción
+          </label>
+
+
+          <svg
+            class="search__icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+
+            <circle
+              cx="10.5"
+              cy="10.5"
+              r="6.5"
+            ></circle>
+
+            <path
+              d="m19 19-4-4"
+            ></path>
+
+          </svg>
+
+
+          <input
+            id="buscador"
+            type="search"
+            placeholder="Buscar canción por número, nombre o letra…"
+            autocomplete="off"
+          >
+
+
+          <button
+            id="limpiar-busqueda"
+            class="search__clear"
+            type="button"
+            aria-label="Limpiar búsqueda"
+            hidden
+          >
+            &times;
+          </button>
+
+        </div>
+
+
+
+        <!-- BOTONES -->
+
+        <div class="toolbar__actions">
+
+          <button
+            id="cerrar-todo"
+            class="close-all"
+            type="button"
+          >
+            Cerrar todo
+          </button>
+
+
+          <button
+            id="generar-pdf"
+            class="close-all"
+            type="button"
+          >
+            Imprimir cancionero
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="reader-tools" aria-label="Opciones de lectura">
+        <button id="solo-favoritas" type="button" aria-pressed="false">♡ Favoritas</button>
+        <span class="reader-tools__divider" aria-hidden="true"></span>
+        <span class="reader-tools__label">Tamaño</span>
+        <button id="letra-menos" type="button" aria-label="Reducir tamaño de letra">A−</button>
+        <button id="letra-mas" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+        <button id="modo-lectura" type="button" aria-pressed="false">☾ Modo noche</button>
+      </div>
+
+
+
+      <!-- =================================================
+           ESTADO DE CARGA
+           ================================================= -->
+
+      <p
+        id="estado-carga"
+        class="counter"
+        aria-live="polite"
+      >
+        Cargando canciones…
+      </p>
+
+
+
+      <!-- =================================================
+           CONTADOR
+           ================================================= -->
+
+      <p
+        id="contador"
+        class="counter"
+        aria-live="polite"
+      ></p>
+
+
+
+      <!-- =================================================
+           LISTA DE CANCIONES
+           ================================================= -->
+
+      <div
+        id="lista-canciones"
+        class="songs"
+        aria-live="polite"
+      ></div>
+
+
+
+      <!-- =================================================
+           SIN RESULTADOS
+           ================================================= -->
+
+      <div
+        id="sin-resultados"
+        class="empty-state"
+        hidden
+      >
+
+        <div
+          class="empty-state__symbol"
+          aria-hidden="true"
+        >
+          &#9834;
+        </div>
+
+
+        <h2>
+          No se encontraron canciones
+        </h2>
+
+
+        <p>
+          Prueba con otro número,
+          título o palabra de la letra.
+        </p>
+
+      </div>
+
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PIE DE PÁGINA
+       ===================================================== -->
+
+  <footer class="footer">
+
+    <span aria-hidden="true">
+      ✥
+    </span>
+
+    <p>
+      Señor Cautivo de Ayabaca
+    </p>
+
+    <small>
+      Fe, tradición y devoción
+    </small>
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       LIBRERÍAS Y SCRIPTS
+       ORDEN IMPORTANTE
+       ===================================================== -->
+
+  <!-- Supabase -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
+
+  <!-- Configuración del proyecto -->
+
+  <script src="config.js"></script>
+
+
+  <!-- Canciones de respaldo -->
+
+  <script src="canciones.js"></script>
+
+
+  <!-- Conexión con Supabase -->
+
+  <script src="data-service.js"></script>
+
+
+  <!-- Funcionamiento principal -->
+
+  <script src="script.js"></script>
+  <script src="enhancements.js"></script>
+
+
+</body>
+
+</html>

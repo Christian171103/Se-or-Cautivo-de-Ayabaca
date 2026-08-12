@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#26143f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Zampoña · Cancionero Señor Cautivo</title>
+  <link rel="stylesheet" href="musica.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-cross">✝</div>
+      <strong>Señor Cautivo</strong>
+      <span>Cancionero musical</span>
+    </div>
+    <nav class="side-nav">
+      <a href="index.html">♫ Cancionero</a>
+      <a href="charango.html">🪕 Charango</a>
+      <a class="active" href="zampona.html">▥ Zampoña</a>
+    </nav>
+    <div class="sidebar-foot">Guía musical pública</div>
+  </aside>
+
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Guía musical pública</p>
+        <h1>Zampoña · Secuencias por canción</h1>
+      </div>
+      <div class="top-controls">
+        <label>
+          <span>Canción</span>
+          <select id="songSelect"></select>
+        </label>
+      </div>
+    </header>
+
+    <section id="notPublished" class="public-empty" hidden>
+      <div class="public-empty__symbol">▥</div>
+      <h2>Esta canción todavía no tiene una guía de Zampoña publicada</h2>
+      <p>Cuando el administrador publique sus partes y secuencias aparecerán aquí.</p>
+    </section>
+
+    <section id="publicContent" class="zampona-public-v3" hidden>
+
+      <article class="panel z-instrument-panel">
+        <div class="panel-head">
+          <div><span class="step">1</span><h2>Selecciona un tubo para escucharlo</h2></div>
+          <p>La numeración empieza en el tubo más pequeño y aumenta hacia el más grande.</p>
+        </div>
+
+        <div class="z-instrument-card">
+          <div class="z-row-block">
+            <div class="z-row-label">
+              <strong>Fila superior</strong>
+              <span>12 tubos · 1 pequeño → 12 grande</span>
+            </div>
+            <div id="upperRow" class="z-pipe-row"></div>
+          </div>
+
+          <div class="z-row-block">
+            <div class="z-row-label">
+              <strong>Fila inferior</strong>
+              <span>11 tubos · 1 pequeño → 11 grande</span>
+            </div>
+            <div id="lowerRow" class="z-pipe-row"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel z-score-panel">
+        <div class="panel-head">
+          <div><span class="step">2</span><h2>Secuencia registrada</h2></div>
+          <div class="z-score-actions">
+            <label class="speed-inline"><span>Velocidad</span>
+              <select id="playbackSpeed">
+                <option value="0.5">x0.5 · Aprendizaje</option><option value="0.75">x0.75</option>
+                <option value="1" selected>x1</option><option value="1.25">x1.25</option>
+                <option value="1.5">x1.5</option><option value="2">x2</option>
+                <option value="2.5">x2.5</option><option value="3">x3</option>
+              </select>
+            </label>
+            <button id="playAllBtn" class="primary" type="button">▶ Reproducir secuencia</button>
+            <button id="stopAllBtn" class="ghost" type="button">■ Detener</button>
+          </div>
+        </div>
+
+        <div class="z-theme-line">
+          <span>TEMA:</span>
+          <strong id="songTitle">—</strong>
+        </div>
+
+        <div id="publicStructure" class="z-structure"></div>
+
+        <div class="z-notation-legend">
+          <span>↗ ↘ = cambio entre filas</span>
+          <span><b>⌒</b> = arrastre en un mismo soplido</span>
+        </div>
+      </article>
+    </section>
+
+    <footer class="statusbar">
+      <span id="publicStatus">Cargando guía…</span>
+      <span>Vista pública · solo lectura</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="canciones.js"></script>
+  <script src="data-service.js"></script>
+  <script src="zampona.js"></script>
+</body>
+</html>

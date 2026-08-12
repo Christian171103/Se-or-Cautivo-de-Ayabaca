@@ -1,0 +1,11 @@
+{
+  "name": "Cancionero del Señor Cautivo de Ayabaca",
+  "short_name": "Cancionero Cautivo",
+  "description": "Letras y acompañamiento musical para peregrinos y devotos.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F2EA",
+  "theme_color": "#352448",
+  "icons": [{"src":"assets/cautivo.png","sizes":"512x512","type":"image/png","purpose":"any"}]
+}

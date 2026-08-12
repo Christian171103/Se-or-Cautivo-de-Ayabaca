@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#26143f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Charango · Cancionero Señor Cautivo</title>
+  <link rel="stylesheet" href="musica.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-cross">✝</div>
+      <strong>Señor Cautivo</strong>
+      <span>Cancionero musical</span>
+    </div>
+
+    <nav class="side-nav">
+      <a href="index.html">♫ Cancionero</a>
+      <a class="active" href="charango.html">🪕 Charango</a>
+      <a href="zampona.html">▥ Zampoña</a>
+    </nav>
+
+    <div class="sidebar-foot">Vista pública</div>
+  </aside>
+
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Guía musical pública</p>
+        <h1>Charango · Acordes por canción</h1>
+      </div>
+
+      <div class="top-controls">
+        <label>
+          <span>Canción</span>
+          <select id="songSelect"></select>
+        </label>
+      </div>
+    </header>
+
+    <section class="reference-panel">
+      <div class="reference-copy">
+        <p class="eyebrow">Canción seleccionada</p>
+        <h2 id="songTitle">Cargando…</h2>
+        <p id="songMeta">Los datos provienen del mismo cancionero.</p>
+      </div>
+
+      <div class="reference-actions">
+        <button id="referencePlayBtn" class="primary" type="button" disabled>▶ Escuchar referencia</button>
+        <a id="youtubeBtn" class="ghost reference-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Abrir en YouTube ↗</a>
+        <span id="referenceStart" class="soft-badge">Inicio: 0:00</span>
+      </div>
+
+      <div id="referencePlayerWrap" class="reference-player" hidden>
+        <iframe id="referencePlayer" title="Referencia de YouTube" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="notPublished" class="public-empty" hidden>
+      <div class="public-empty__symbol">🪕</div>
+      <h2>Esta canción todavía no tiene acordes publicados</h2>
+      <p>Cuando el administrador complete y publique su ficha de Charango, aparecerá aquí.</p>
+    </section>
+
+    <section id="publicContent" class="public-charango" hidden>
+      <article class="panel public-summary">
+        <div class="summary-item">
+          <span>Tonalidad</span>
+          <strong id="publicKey">—</strong>
+        </div>
+        <div class="summary-item">
+          <span>Ritmo / rasgueo</span>
+          <strong id="publicStrum">—</strong>
+        </div>
+        <div class="summary-item">
+          <span>Acordes usados</span>
+          <strong id="publicChordCount">0</strong>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div><span class="step">1</span><h2>Acordes de la canción</h2></div>
+          <p>Selecciona un acorde para ver su posición en el charango.</p>
+        </div>
+        <div id="usedChords" class="used-chords"></div>
+      </article>
+
+      <article class="panel public-sections-panel">
+        <div class="panel-head">
+          <div><span class="step">2</span><h2>Progresión por partes</h2></div>
+          <div class="music-play-controls">
+            <label class="speed-inline"><span>Velocidad</span>
+              <select id="charangoSpeed">
+                <option value="0.5">x0.5</option><option value="0.75">x0.75</option>
+                <option value="1" selected>x1</option><option value="1.25">x1.25</option>
+                <option value="1.5">x1.5</option><option value="2">x2</option>
+                <option value="2.5">x2.5</option><option value="3">x3</option>
+              </select>
+            </label>
+            <button id="playProgressionBtn" class="primary" type="button">▶ Reproducir</button>
+            <button id="stopProgressionBtn" class="ghost" type="button">■ Detener</button>
+          </div>
+        </div>
+        <div id="publicSections" class="public-sections"></div>
+      </article>
+
+      <article class="panel public-fretboard-panel">
+        <div class="panel-head">
+          <div><span class="step">3</span><h2>Posición de los dedos</h2></div>
+          <div class="selected-chord">
+            <strong id="selectedChordLabel">—</strong>
+            <span id="selectedChordName">Selecciona un acorde</span>
+          </div>
+        </div>
+
+        <div class="fretboard-layout">
+          <div class="chord-info">
+            <div class="mini-card">
+              <span>Notas del acorde</span>
+              <strong id="chordTones">—</strong>
+            </div>
+
+            <button id="playChordBtn" class="primary wide" type="button" disabled>▶ Escuchar acorde</button>
+
+            <div class="legend">
+              <div><span class="finger">1</span> Índice</div>
+              <div><span class="finger">2</span> Medio</div>
+              <div><span class="finger">3</span> Anular</div>
+              <div><span class="finger">4</span> Meñique</div>
+            </div>
+          </div>
+
+          <div class="fretboard-wrap">
+            <div id="fretPositionLabel" class="fret-position-label" hidden></div>
+            <div id="fretboard" class="fretboard charango-instrument" aria-label="Mástil de charango con digitación"></div>
+            <p class="hint">Los puntos morados indican la digitación publicada por el administrador.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="statusbar">
+      <span id="publicStatus">Cargando ficha…</span>
+      <span>Vista pública · solo lectura</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="canciones.js"></script>
+  <script src="data-service.js"></script>
+  <script src="charango.js"></script>
+</body>
+</html>

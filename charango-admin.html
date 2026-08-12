@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administración Charango · Señor Cautivo</title>
+  <link rel="stylesheet" href="musica.css">
+</head>
+<body class="admin-music-page">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-cross">✝</div>
+      <strong>Señor Cautivo</strong>
+      <span>Administración musical</span>
+    </div>
+
+    <nav class="side-nav">
+      <a href="index.html">♫ Cancionero</a>
+      <a href="charango.html">🪕 Charango público</a>
+      <a class="active" href="charango-admin.html">⚙ Editar Charango</a>
+    </nav>
+
+    <div class="sidebar-foot">Acceso privado</div>
+  </aside>
+
+  <main class="app">
+    <section id="loginView" class="music-login">
+      <div class="panel music-login-card">
+        <p class="eyebrow">Administración privada</p>
+        <h1>Charango</h1>
+        <p>Inicia sesión con el mismo usuario administrador del cancionero.</p>
+
+        <form id="loginForm" class="admin-music-form">
+          <label>
+            <span>Correo</span>
+            <input id="loginEmail" type="email" required autocomplete="username">
+          </label>
+          <label>
+            <span>Contraseña</span>
+            <input id="loginPassword" type="password" required autocomplete="current-password">
+          </label>
+          <button class="primary wide" type="submit">Iniciar sesión</button>
+          <p id="loginStatus" class="status-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="adminView" hidden>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Administración privada</p>
+          <h1>Editor de Charango</h1>
+        </div>
+        <div class="top-controls">
+          <span id="adminUser" class="soft-badge"></span>
+          <button id="logoutBtn" class="ghost" type="button">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <section class="admin-music-grid">
+        <article class="panel">
+          <div class="panel-head">
+            <div><span class="step">1</span><h2>Ficha de la canción</h2></div>
+          </div>
+
+          <div class="admin-fields">
+            <label>
+              <span>Canción</span>
+              <select id="songSelect"></select>
+            </label>
+
+            <label>
+              <span>Tonalidad</span>
+              <input id="songKey" type="text" placeholder="Ej.: Sol Mayor (G)">
+            </label>
+
+            <label>
+              <span>Ritmo / rasgueo</span>
+              <input id="songStrum" type="text" placeholder="Ej.: ↓ ↓↑ ↑↓↑">
+              <div class="strum-buttons"><button type="button" data-strum="↓">↓ Abajo</button><button type="button" data-strum="↑">↑ Arriba</button><button type="button" data-strum="×">× Apagado</button><button type="button" data-strum="·">· Pausa</button></div>
+            </label>
+
+            <label class="publish-row">
+              <input id="songPublished" type="checkbox">
+              <span>Publicar esta ficha para todos</span>
+            </label>
+          </div>
+
+          <div class="admin-section-editor">
+            <h3>Progresión por partes</h3>
+            <p class="admin-help">Un acorde por pulso: G - D - Em. Dos acordes en el mismo pulso: Am/Dm. Para un comentario escribe # antes del texto, por ejemplo: #Repetir verso + coro.</p>
+
+            <label><span>Intro</span><input id="secIntro" type="text"></label>
+            <label><span>Verso</span><input id="secVerso" type="text"></label>
+            <label><span>Coro</span><input id="secCoro" type="text"></label>
+            <label><span>Puente</span><input id="secPuente" type="text"></label>
+            <label><span>Final</span><input id="secFinal" type="text"></label>
+          </div>
+
+          <button id="saveSongRecord" class="primary wide" type="button">Guardar ficha de canción</button>
+          <p id="songSaveStatus" class="status-message"></p>
+        </article>
+
+        <article class="panel chord-admin-panel">
+          <div class="panel-head">
+            <div><span class="step">2</span><h2>Catálogo de acordes</h2></div>
+            <button id="newChordBtn" class="ghost" type="button">+ Nuevo acorde</button>
+          </div>
+
+          <div class="chord-admin-layout">
+            <div>
+              <label class="admin-search-label">
+                <span>Buscar acorde</span>
+                <input id="chordSearch" type="search" placeholder="G, G7, Em…">
+              </label>
+              <div id="chordAdminList" class="chord-admin-list"></div>
+            </div>
+
+            <div class="chord-editor">
+              <input id="chordId" type="hidden">
+
+              <div class="admin-fields two-cols">
+                <label><span>Nombre corto</span><input id="chordName" type="text" placeholder="G"></label>
+                <label><span>Nombre completo</span><input id="chordFullName" type="text" placeholder="Sol mayor"></label>
+              </div>
+
+              <label>
+                <span>Notas del acorde</span>
+                <input id="chordNotes" type="text" placeholder="G, B, D">
+              </label>
+
+              <label class="publish-row">
+                <input id="chordPublished" type="checkbox">
+                <span>Mostrar este acorde al público</span>
+              </label>
+
+              <div class="admin-audio-box">
+                <div>
+                  <strong>Audio real del acorde</strong>
+                  <p class="admin-help">Opcional. Si cargas un audio, la vista pública lo usará en lugar del sonido sintetizado.</p>
+                </div>
+                <input id="chordAudioFile" type="file" accept="audio/*">
+                <audio id="chordAudioPreview" controls hidden></audio>
+                <button id="removeChordAudioBtn" class="ghost danger" type="button" hidden>Quitar audio</button>
+              </div>
+
+              <h3>Digitación</h3>
+              <p class="admin-help">Cada línea vertical representa uno de los 5 órdenes del charango. Los puntos quedan sobre la cuerda. Para acordes con cejilla usa el modo “Cejilla”.</p>
+
+              <div class="mode-picker">
+                <span>Modo:</span>
+                <button class="mode-select active" data-mode="dedo" type="button">● Dedo individual</button>
+                <button class="mode-select" data-mode="cejilla" type="button">━ Cejilla</button>
+              </div>
+
+              <div class="finger-picker">
+                <span>Dedo:</span>
+                <button class="finger-select active" data-finger="1" type="button">1</button>
+                <button class="finger-select" data-finger="2" type="button">2</button>
+                <button class="finger-select" data-finger="3" type="button">3</button>
+                <button class="finger-select" data-finger="4" type="button">4</button>
+              </div>
+
+              <label class="fret-count-control"><span>Trastes visibles</span><input id="fretCount" type="number" min="5" max="15" value="8"></label>
+              <div id="fingerEditorWrap">
+                <div id="adminNeck" class="admin-neck"></div>
+              </div>
+
+              <div id="barreEditor" hidden>
+                <div class="barre-builder">
+                  <label><span>Traste</span><select id="barreFret"></select></label>
+                  <label><span>Desde orden</span><select id="barreFrom"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+                  <label><span>Hasta orden</span><select id="barreTo"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></label>
+                  <label><span>Dedo</span><select id="barreFinger"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+                </div>
+                <button id="addBarreBtn" class="ghost" type="button">+ Agregar cejilla</button>
+                <div id="barreList" class="barre-list"></div>
+              </div>
+
+              <div class="open-strings-admin">
+                <span>Órdenes al aire:</span>
+                <label><input class="open-string-check" value="1" type="checkbox">1</label>
+                <label><input class="open-string-check" value="2" type="checkbox">2</label>
+                <label><input class="open-string-check" value="3" type="checkbox">3</label>
+                <label><input class="open-string-check" value="4" type="checkbox">4</label>
+                <label><input class="open-string-check" value="5" type="checkbox">5</label>
+              </div>
+              <div class="muted-strings-admin"><span>Órdenes muteados:</span><label><input class="muted-string-check" value="1" type="checkbox">1</label><label><input class="muted-string-check" value="2" type="checkbox">2</label><label><input class="muted-string-check" value="3" type="checkbox">3</label><label><input class="muted-string-check" value="4" type="checkbox">4</label><label><input class="muted-string-check" value="5" type="checkbox">5</label></div>
+
+              <div class="form-actions">
+                <button id="saveChordBtn" class="primary" type="button">Guardar acorde</button>
+                <button id="clearChordBtn" class="ghost" type="button">Limpiar</button>
+                <button id="deleteChordBtn" class="ghost danger" type="button" hidden>Eliminar</button>
+              </div>
+
+              <p id="chordSaveStatus" class="status-message"></p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="canciones.js"></script>
+  <script src="data-service.js"></script>
+  <script src="charango-admin.js"></script>
+</body>
+</html>
