@@ -309,7 +309,7 @@ function eventPoints(events) {
 
 function renderNotation(events,blockId="") {
   const points = eventPoints(events);
-  const unit = 43, separatorGap = 46, pad = 24;
+  const unit = 40, separatorGap = 42, pad = 22;
   const yTop = 42, yBottom = 112, height = 165;
 
   let cursor = pad;

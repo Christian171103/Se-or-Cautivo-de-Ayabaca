@@ -188,7 +188,9 @@
                   <select id="nextDuration">
                     <option value="0.5">½</option>
                     <option value="1" selected>1</option>
+                    <option value="1.5">1½</option>
                     <option value="2">2</option>
+                    <option value="3">3</option>
                     <option value="4">4</option>
                   </select>
                 </label>
@@ -204,6 +206,20 @@
               </div>
 
               <div id="adminNotation"></div>
+
+              <section id="eventEditor" class="z-event-editor" hidden>
+                <strong>Editar evento seleccionado</strong>
+                <span id="selectedEventLabel"></span>
+                <label>Duración
+                  <input id="selectedEventDuration" type="number" min="0.25" step="0.25" value="1">
+                </label>
+                <div class="z-event-editor-actions">
+                  <button id="moveEventBack" class="ghost" type="button">← Mover</button>
+                  <button id="moveEventForward" class="ghost" type="button">Mover →</button>
+                  <button id="saveEventEdit" class="primary" type="button">Guardar cambio</button>
+                  <button id="deleteSelectedEvent" class="ghost danger" type="button">Eliminar</button>
+                </div>
+              </section>
 
               <div class="z-sequence-actions">
                 <button id="newPhraseBtn" class="ghost">＋ Espacio / Nueva frase</button>
@@ -225,7 +241,7 @@
 
               <details class="z-manual-details">
                 <summary>⌨ Registro manual avanzado</summary>
-                <p class="admin-help">S = superior, I = inferior. <b>S3&amp;S4</b> = dos medios tiempos; <b>S2&amp;S5</b> = arrastre continuo S2→S3→S4→S5; <b>/</b> = nueva frase.</p>
+                <p class="admin-help">S = superior, I = inferior. <b>S8:2</b> = dos tiempos; <b>S8:0.5</b> = medio tiempo; <b>S3&amp;S4</b> = dos medios tiempos; <b>S2&amp;S5:2</b> = arrastre de dos tiempos; <b>/</b> = nueva frase.</p>
                 <textarea id="manualSequence" placeholder="S5 I4 S3 I2"></textarea>
                 <button id="applyManualBtn" class="ghost">Aplicar secuencia manual</button>
               </details>

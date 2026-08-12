@@ -478,7 +478,7 @@ function eventPoints(events) {
 
 function renderNotation(events,blockId="") {
   const points = eventPoints(events);
-  const unit = 54, separatorGap = 62, pad = 28;
+  const unit = 43, separatorGap = 46, pad = 24;
   const yTop = 42, yBottom = 112, height = 165;
 
   let cursor = pad;
@@ -586,6 +586,8 @@ function renderNotation(events,blockId="") {
     t.dataset.fila=p.fila||"";
     t.dataset.tubo=String(p.tubo ?? "");
     t.textContent=p.tubo;
+    t.setAttribute("role","button");
+    t.addEventListener("click",()=>selectSequenceEvent(Number(p.eventIndex)));
     svg.append(t);
 
     if(Number(p.ev?.duracion)!==1 && Number(p.ev?.duracion)!==0.5 && p.kind!=="drag-end") {
@@ -601,6 +603,22 @@ function renderNotation(events,blockId="") {
   wrap.append(svg);
   return wrap;
 }
+
+let selectedEventIndex=-1;
+function selectSequenceEvent(index){
+  const p=activePart(),ev=p?.eventos?.[index];if(!ev||ev.tipo==="separador")return;
+  selectedEventIndex=index;
+  document.querySelectorAll(".z-notation-number").forEach(x=>x.classList.toggle("is-selected-event",Number(x.dataset.eventIndex)===index));
+  $("#eventEditor").hidden=false;
+  const label=ev.tipo==="arrastre"?`${ev.desde.fila==="superior"?"S":"I"}${ev.desde.tubo} → ${ev.hasta.fila==="superior"?"S":"I"}${ev.hasta.tubo}`:`${ev.fila==="superior"?"S":"I"}${ev.tubo}`;
+  $("#selectedEventLabel").textContent=`Evento ${index+1}: ${label}`;
+  $("#selectedEventDuration").value=Number(ev.duracion)||1;
+}
+function refreshAfterEventEdit(){selectedEventIndex=-1;$("#eventEditor").hidden=true;renderActiveEditor();renderStructureList();}
+$("#saveEventEdit").addEventListener("click",()=>{const p=activePart(),ev=p?.eventos?.[selectedEventIndex];if(!ev)return;ev.duracion=Math.max(.25,Number($("#selectedEventDuration").value)||1);refreshAfterEventEdit();});
+$("#deleteSelectedEvent").addEventListener("click",()=>{const p=activePart();if(!p||selectedEventIndex<0)return;p.eventos.splice(selectedEventIndex,1);refreshAfterEventEdit();});
+$("#moveEventBack").addEventListener("click",()=>{const p=activePart();if(!p||selectedEventIndex<=0)return;[p.eventos[selectedEventIndex-1],p.eventos[selectedEventIndex]]=[p.eventos[selectedEventIndex],p.eventos[selectedEventIndex-1]];selectedEventIndex--;renderActiveEditor();selectSequenceEvent(selectedEventIndex);});
+$("#moveEventForward").addEventListener("click",()=>{const p=activePart();if(!p||selectedEventIndex<0||selectedEventIndex>=p.eventos.length-1)return;[p.eventos[selectedEventIndex+1],p.eventos[selectedEventIndex]]=[p.eventos[selectedEventIndex],p.eventos[selectedEventIndex+1]];selectedEventIndex++;renderActiveEditor();selectSequenceEvent(selectedEventIndex);});
 
 
 function renderActiveEditor() {
@@ -634,7 +652,7 @@ function renderActiveEditor() {
   $("#manualSequence").value=(item.eventos||[]).map((e,index,arr)=>{
     if(e.tipo==="separador") return "/";
     if(e.tipo==="arrastre"){
-      return `${e.desde.fila===ROW_TOP?"S":"I"}${e.desde.tubo}&${e.hasta.fila===ROW_TOP?"S":"I"}${e.hasta.tubo}`;
+      return `${e.desde.fila===ROW_TOP?"S":"I"}${e.desde.tubo}&${e.hasta.fila===ROW_TOP?"S":"I"}${e.hasta.tubo}${Number(e.duracion)!==1?`:${e.duracion}`:""}`;
     }
     if(e.tipo==="nota"){
       if(Number(e.duracion)===0.5){
@@ -643,7 +661,7 @@ function renderActiveEditor() {
         if(next?.tipo==="nota"&&Number(next.duracion)===0.5&&next.fila===e.fila)
           return `${e.fila===ROW_TOP?"S":"I"}${e.tubo}&${next.fila===ROW_TOP?"S":"I"}${next.tubo}`;
       }
-      return `${e.fila===ROW_TOP?"S":"I"}${e.tubo}`;
+      return `${e.fila===ROW_TOP?"S":"I"}${e.tubo}${Number(e.duracion)!==1?`:${e.duracion}`:""}`;
     }
     return "";
   }).filter(Boolean).join(" ");
@@ -745,7 +763,7 @@ function setZHighlight(fila,tubo,eventIndex,blockId,on){
   document.querySelectorAll(".z-notation-number").forEach(el=>{
     const ok=el.dataset.fila===fila&&Number(el.dataset.tubo)===Number(tubo)
       &&Number(el.dataset.eventIndex)===Number(eventIndex)&&String(el.dataset.blockId)===String(blockId);
-    if(ok)el.classList.toggle("is-playing",on);
+    if(ok){el.classList.toggle("is-playing",on);if(on){const wrap=el.closest(".z-notation-scroll"),svg=el.closest("svg");if(wrap&&svg){const x=Number(el.getAttribute("x"))||0,w=svg.getBoundingClientRect().width,v=Number(svg.viewBox.baseVal.width)||w;wrap.scrollTo({left:Math.max(0,(x/v)*w-wrap.clientWidth*.42),behavior:"smooth"});}}}
   });
 }
 function playTubeSample(tube,speed,durationMs){
@@ -796,10 +814,10 @@ $("#applyManualBtn").addEventListener("click",()=>{
   let errorText="";
 
   const parseCode=code=>{
-    const m=String(code).match(/^([SI])(\d{1,2})$/i); if(!m)return null;
+    const m=String(code).match(/^([SI])(\d{1,2})(?::(\d+(?:\.\d+)?))?$/i); if(!m)return null;
     const fila=m[1].toUpperCase()==="S"?ROW_TOP:ROW_BOTTOM;
     const tubo=Number(m[2]),max=fila===ROW_TOP?12:11;
-    return tubo>=1&&tubo<=max?{fila,tubo}:null;
+    return tubo>=1&&tubo<=max?{fila,tubo,duracion:m[3]?Number(m[3]):null}:null;
   };
 
   for(const token of tokens){
@@ -808,7 +826,7 @@ $("#applyManualBtn").addEventListener("click",()=>{
       continue;
     }
     if(token.includes("&")){
-      const pair=token.split("&");
+      const durationMatch=token.match(/:(\d+(?:\.\d+)?)$/);const tokenDuration=durationMatch?Number(durationMatch[1]):dur;const cleanToken=token.replace(/:(\d+(?:\.\d+)?)$/,'');const pair=cleanToken.split("&");
       const a=parseCode(pair[0]),b=parseCode(pair[1]);
       if(pair.length!==2||!a||!b){errorText=`Formato inválido: ${token}`;continue;}
       if(a.fila!==b.fila){errorText=`${token}: el arrastre no puede cambiar de fila.`;continue;}
@@ -816,12 +834,12 @@ $("#applyManualBtn").addEventListener("click",()=>{
         parsed.push({tipo:"nota",fila:a.fila,tubo:a.tubo,duracion:.5});
         parsed.push({tipo:"nota",fila:b.fila,tubo:b.tubo,duracion:.5});
       }else{
-        parsed.push({tipo:"arrastre",desde:a,hasta:b,duracion:dur});
+        parsed.push({tipo:"arrastre",desde:a,hasta:b,duracion:tokenDuration});
       }
       continue;
     }
     const one=parseCode(token);
-    if(one) parsed.push({tipo:"nota",...one,duracion:dur});
+    if(one){const noteDuration=one.duracion||dur;delete one.duracion;parsed.push({tipo:"nota",...one,duracion:noteDuration});}
     else errorText=`Formato inválido: ${token}`;
   }
   if(parsed.at(-1)?.tipo==="separador")parsed.pop();

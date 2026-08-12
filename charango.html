@@ -67,11 +67,6 @@
     </section>
 
     <section id="publicContent" class="public-charango" hidden>
-      <nav class="charango-tabs" aria-label="Vistas de ensayo">
-        <button class="is-active" type="button" data-charango-view="all">Mesa de ensayo</button>
-        <button type="button" data-charango-view="progression">Progresión</button>
-        <button type="button" data-charango-view="fingering">Digitaciones</button>
-      </nav>
       <article class="panel public-summary">
         <div class="summary-item">
           <span>Tonalidad</span>
@@ -160,12 +155,5 @@
   <script src="canciones.js"></script>
   <script src="data-service.js"></script>
   <script src="charango.js"></script>
-  <script>
-    document.querySelectorAll("[data-charango-view]").forEach(button=>button.addEventListener("click",()=>{
-      const view=button.dataset.charangoView;
-      document.querySelectorAll("[data-charango-view]").forEach(x=>x.classList.toggle("is-active",x===button));
-      document.querySelector("#publicContent").dataset.view=view;
-    }));
-  </script>
 </body>
 </html>

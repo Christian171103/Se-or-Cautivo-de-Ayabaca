@@ -514,12 +514,12 @@ function generarLibro() {
   */
 
   const urlCautivo = new URL(
-    "assets/cautivo.png",
+    "assets/cautivo-transparent.png",
     window.location.href
   ).href;
 
   const urlSantuario = new URL(
-    "assets/santuario.png",
+    "assets/santuario-transparent.png",
     window.location.href
   ).href;
 

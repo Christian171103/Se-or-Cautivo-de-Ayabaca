@@ -413,7 +413,7 @@ button {
 .song__content {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 260ms ease;
+  transition: grid-template-rows 165ms ease;
 }
 
 .song.is-open .song__content {
@@ -805,3 +805,4 @@ button {
 .admin-entry{display:inline-flex;margin-top:1rem;padding:.55rem .8rem;color:var(--muted);border:1px solid var(--border);border-radius:999px;text-decoration:none;font:700 .7rem Arial,sans-serif}.admin-entry:hover{color:var(--white);background:var(--purple)}
 .admin-hub-nav{position:sticky;top:0;z-index:20;display:flex;justify-content:center;gap:.45rem;padding:.65rem;background:var(--purple-dark);font:700 .78rem Arial,sans-serif}.admin-hub-nav a{padding:.55rem .75rem;color:#eee4f6;border-radius:999px;text-decoration:none}.admin-hub-nav a:hover,.admin-hub-nav a.is-active{color:#352448;background:#f4e4af}
 @media(max-width:520px){.page-decoration--left{display:none}.page-decoration--right{opacity:.35}.admin-hub-nav{justify-content:flex-start;overflow-x:auto}.admin-hub-nav a{flex:none}}
+@media(max-width:620px){.song{box-shadow:0 5px 14px rgba(60,45,35,.07)}.song__content{transition-duration:120ms}.page-decoration img{filter:none!important}.song__button{transition:none}}
