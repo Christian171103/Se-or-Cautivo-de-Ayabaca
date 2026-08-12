@@ -1,1 +1,1 @@
-# Se-or-Cautivo-de-Ayabaca
+# Señor Cautivo de Ayabaca
