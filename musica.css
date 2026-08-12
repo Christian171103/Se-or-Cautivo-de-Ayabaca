@@ -76,8 +76,10 @@ select:focus,input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 
 
 /* ========================== CHARANGO ========================== */
 .public-charango,.admin-music-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px 18px 22px}
+.charango-tabs{grid-column:1/-1;display:flex;gap:7px;padding:6px;background:var(--paper-2);border:1px solid var(--line);border-radius:12px}.charango-tabs button{flex:1;padding:10px;border:0;border-radius:8px;color:var(--purple-dark);background:transparent}.charango-tabs button.is-active{color:#fff;background:var(--purple)}
 .public-summary{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .public-sections-panel,.public-fretboard-panel{grid-column:1/-1}
+@media(min-width:1000px){.public-charango{grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);align-items:start}.public-summary,.charango-tabs{grid-column:1/-1}.public-sections-panel{grid-column:1}.public-fretboard-panel{grid-column:2;position:sticky;top:92px}.public-fretboard-panel .fretboard-layout{grid-template-columns:1fr}.reference-panel{position:relative}.public-sections{max-height:68vh;overflow:auto;padding-right:4px}}
 .selected-chord{display:block!important;text-align:right}
 .selected-chord strong{display:block;color:var(--purple);font-size:32px;line-height:1}
 .selected-chord span{color:var(--muted);font:12px Arial,sans-serif}
@@ -315,6 +317,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 
   .public-summary,.zampona-summary{grid-template-columns:1fr}
   .fretboard-layout{grid-template-columns:1fr}
 }
+@media(max-width:820px){.public-charango[data-view="progression"] .public-fretboard-panel{display:none}.public-charango[data-view="fingering"] .public-sections-panel{display:none}.public-charango[data-view="all"] .public-fretboard-panel,.public-charango[data-view="all"] .public-sections-panel{display:block}.charango-tabs{position:sticky;top:53px;z-index:8}.charango-tabs button{font-size:12px;padding:9px 5px}}
 @media(max-width:520px){
   .top-controls{display:grid;width:100%}
   .top-controls label{min-width:0}
@@ -511,8 +514,9 @@ select:focus,input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 
 .z-pipe.is-playing .z-pipe-number{background:#fff!important;color:#5a2c86!important}
 .z-pipe.is-playing .z-pipe-hole{background:#1f102d!important}
 .z-notation-number.is-playing{
-  fill:#6b35a5!important;font-weight:900!important;
-  filter:drop-shadow(0 0 5px rgba(107,53,165,.45));
+  fill:#fff!important;font-weight:900!important;
+  stroke:#6b35a5;stroke-width:12px;paint-order:stroke fill;
+  filter:drop-shadow(0 0 7px rgba(107,53,165,.65));
 }
 .z-notation-scroll{padding:4px 0}
 .z-part-score{padding:5px 2px!important}
@@ -531,6 +535,6 @@ select:focus,input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 
   .public-fretboard-panel .fretboard-layout{grid-template-columns:1fr}
   .public-fretboard-panel .fretboard{width:min(82vw,340px);height:410px}
   .fret-position-label{left:5px;top:6px;transform:none}
-  .z-pipe{min-width:46px!important;flex-basis:46px!important}
-  .z-pipe-row{gap:5px!important}
+  .z-instrument-card{padding:10px 4px}.z-row-block{grid-template-columns:1fr;gap:4px}.z-row-label{padding-left:6px}.z-pipe-row{width:100%;gap:2px!important;overflow:visible;min-height:220px!important}.z-pipe{min-width:0!important;flex:1 1 0!important}.z-pipe-number{width:24px;height:24px;font-size:11px}.z-pipe-hole{width:min(25px,70%)}
+  .z-part{display:block}.z-part-label{padding:10px 12px;background:#fff7e7}.z-part-score{padding:2px!important}.z-notation{min-width:440px}.z-score-actions{display:grid;width:100%}.follow-toggle{display:flex;align-items:center;gap:7px;padding:8px 0;font:700 12px Arial,sans-serif}
 }

@@ -309,7 +309,7 @@ function eventPoints(events) {
 
 function renderNotation(events,blockId="") {
   const points = eventPoints(events);
-  const unit = 54, separatorGap = 62, pad = 28;
+  const unit = 43, separatorGap = 46, pad = 24;
   const yTop = 42, yBottom = 112, height = 165;
 
   let cursor = pad;
@@ -488,7 +488,21 @@ function setZHighlight(fila,tubo,eventIndex,blockId,on){
   document.querySelectorAll(".z-notation-number").forEach(el=>{
     const ok=el.dataset.fila===fila&&Number(el.dataset.tubo)===Number(tubo)
       &&Number(el.dataset.eventIndex)===Number(eventIndex)&&String(el.dataset.blockId)===String(blockId);
-    if(ok)el.classList.toggle("is-playing",on);
+    if(ok){
+      el.classList.toggle("is-playing",on);
+      if(on && $("#autoFollow")?.checked){
+        const wrap=el.closest(".z-notation-scroll");
+        const svg=el.closest("svg");
+        if(wrap&&svg){
+          const x=Number(el.getAttribute("x"))||0;
+          const renderedWidth=svg.getBoundingClientRect().width;
+          const viewWidth=Number(svg.viewBox.baseVal.width)||renderedWidth;
+          const target=(x/viewWidth)*renderedWidth-wrap.clientWidth*.42;
+          wrap.scrollTo({left:Math.max(0,target),behavior:"smooth"});
+        }
+        el.closest(".z-part")?.scrollIntoView({behavior:"smooth",block:"nearest"});
+      }
+    }
   });
 }
 function playTubeSample(tube,speed,durationMs){

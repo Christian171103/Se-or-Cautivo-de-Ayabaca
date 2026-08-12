@@ -1,5 +1,5 @@
-const CACHE = "cancionero-cautivo-v2";
-const CORE = ["./", "./index.html", "./style.css", "./script.js", "./enhancements.js", "./canciones.js", "./data-service.js", "./config.js", "./charango.html", "./zampona.html", "./musica.css", "./assets/cautivo.webp", "./assets/santuario.webp"];
+const CACHE = "cancionero-cautivo-v3";
+const CORE = ["./", "./index.html", "./style.css", "./script.js", "./enhancements.js", "./canciones.js", "./data-service.js", "./config.js", "./charango.html", "./zampona.html", "./musica.css", "./assets/cautivo-transparent.png", "./assets/santuario-transparent.png"];
 self.addEventListener("install", event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())));
 self.addEventListener("activate", event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
 self.addEventListener("fetch", event => {
